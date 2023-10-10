@@ -1,0 +1,26 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+h1 {
+    color: black;
+    margin-bottom: 20px;
+}
+
+#map, #bubbleplot {
+    margin: 10px 0;
+}
+
+#bubbleplot {
+    margin-top: 100px; 
+}

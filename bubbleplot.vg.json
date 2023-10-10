@@ -1,0 +1,126 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 400,
+    "title": "Population Density and Area per Country (2022)",
+    "data": {
+        "url": "data/worldpopulation.csv"
+    },
+    
+    "layer": [
+    {
+    "params" :[ { 
+        "name" : "continent_highlight" , 
+        "select" : { "type" : "point", "fields" : [ "Continent" ]}, 
+        "bind" : "legend" 
+    }],
+    "mark": "circle",
+    "encoding": {
+      "x": {
+        "field": "Area (km²)",
+        "type": "quantitative",
+        "title": "Area (km²)",
+        "scale": {"type":"log"},
+        "axis": {"tickCount": 5}
+      },
+      "y": {
+        "field": "Density (per km²)",
+        "type": "quantitative",
+        "title": "Density (per km²)",
+        "scale": {"type":"log"},
+        "axis": {"tickCount": 5}
+      },
+      "color": {
+        "field": "Continent",
+        "type": "nominal",
+        "scale": {
+            "domain": ["North America", "South America", "Europe", "Africa", "Asia", "Oceania"],
+            "range": ["#e41a1c", "#984ea3", "#ff7f00", "#a6cee3", "#377eb8", "#a65628"]
+        }
+      },
+      "opacity": {
+          "condition" : { "param" : "continent_highlight" , "value" : 0.6 },
+            "value": 0.2
+        },    
+      "size": {
+        "field": "2022 Population",
+        "type": "quantitative",
+        "scale": {
+            "type": "threshold",
+            "domain": [1000000, 10000000, 50000000, 100000000, 500000000, 1000000000, 2000000000, 5000000000, 10000000000],
+            "range": [10, 50, 150, 200, 250, 350, 500, 600, 750, 900]
+        },
+        "legend": {
+            "format": ".1s"
+        }
+    },
+      "tooltip": [
+        {
+          "field": "Country/Territory",
+          "type": "nominal"
+        },
+        {
+          "field": "Capital",
+          "type": "nominal"
+        },
+        {
+          "field": "2022 Population",
+          "type": "quantitative"
+        }
+      ]
+    }
+  },
+  {
+    "mark": {
+      "type": "text",
+      "align": "center",
+      "baseline": "bottom",
+      "dx": 0,
+      "dy": -10,
+      "fontSize": 11.5,
+      "fontStyle": "italic"
+    },
+    "encoding": {
+      "x": { 
+        "field": "Area (km²)", 
+        "type": "quantitative",
+        "scale": {"type": "log"} 
+      },
+      "y": { 
+        "field": "Density (per km²)", 
+        "type": "quantitative",
+        "scale": {"type": "log"}
+      },
+      "text": {
+        "field": "Country/Territory",
+        "type": "nominal"
+      },
+      "color": {
+        "value": "black"
+      },
+      "opacity": {
+        "condition": {
+          "test": "datum['Country/Territory'] == 'China' || datum['Country/Territory'] == 'Singapore' || datum['Country/Territory'] == 'Australia' || datum['Country/Territory'] == 'India' || datum['Country/Territory'] == 'Bangladesh' || datum['Country/Territory'] == 'Palestine'",
+          "value": 1
+        },
+        "value": 0
+      },
+      "tooltip": [
+        {
+          "field": "Country/Territory",
+          "type": "nominal"
+        },
+        {
+          "field": "Capital",
+          "type": "nominal"
+        },
+        {
+          "field": "2022 Population",
+          "type": "quantitative"
+        }
+      ]
+    }
+  }  
+]
+}
+  
